@@ -26,3 +26,6 @@ $(build_path)Shader.o : $(src_path)Shader.cpp $(include_path)Shader.hpp
 
 $(build_path)Texture.o : $(src_path)Texture.cpp $(include_path)Texture.hpp
 	g++ $(src_path)Texture.cpp -c -o$(build_path)Texture.o -O3 -I$(include_path)
+
+clean:
+	rm -f $(object_files) $(lib_path)GL_Wrapper.a
