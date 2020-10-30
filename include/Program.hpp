@@ -1,3 +1,6 @@
+#ifndef GLW_PROGRAM
+#define GLW_PROGRAM
+
 #include "Shader.hpp"
 #include <map>
 #include <glm/glm.hpp>
@@ -34,3 +37,5 @@ private:
 
     std::map<std::string,GLuint> uniform_map;
 };
+
+#endif

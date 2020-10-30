@@ -1,3 +1,6 @@
+#ifndef GLW_SHADER
+#define GLW_SHADER
+
 #include <GL/glew.h>
 #include <fstream>
 #include <sstream>
@@ -15,3 +18,5 @@ public:
 private:
     GLuint shader_id;
 };
+
+#endif
