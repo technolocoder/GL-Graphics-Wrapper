@@ -2,10 +2,10 @@
 #include <GLFW/glfw3.h>
 
 float vertices[] = {
-    -0.5,-0.5,1.0,0.0,0.0,
-    -0.5, 0.5,0.0,1.0,0.0,
-     0.5, 0.5,0.0,0.0,1.0,
-     0.5,-0.5,1.0,1.0,1.0
+    -0.5,-0.5,0.0,0.0,
+    -0.5, 0.5,0.0,1.0,
+     0.5, 0.5,1.0,1.0,
+     0.5,-0.5,1.0,0.0
 };
 
 unsigned int indices[] = {
@@ -33,10 +33,10 @@ int main(){
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,ebo);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER,sizeof(indices),indices,GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0,2,GL_FLOAT,GL_FALSE,sizeof(float)*5,(const void*)0);
+    glVertexAttribPointer(0,2,GL_FLOAT,GL_FALSE,sizeof(float)*4,(const void*)0);
     glEnableVertexAttribArray(0);
 
-    glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,sizeof(float)*5,(const void*)(sizeof(float)*2));
+    glVertexAttribPointer(1,2,GL_FLOAT,GL_FALSE,sizeof(float)*4,(const void*)(sizeof(float)*2));
     glEnableVertexAttribArray(1);
 
     Program program;
@@ -44,6 +44,9 @@ int main(){
     program.attachShader("./test/Shader/VertexShader.glsl",GL_VERTEX_SHADER);
     program.attachShader("./test/Shader/FragmentShader.glsl",GL_FRAGMENT_SHADER);
     program.link();
+
+    Texture texture("test/Textures/crate.png");
+    texture.bind();
 
     while(!glfwWindowShouldClose(window)){
         glClear(GL_COLOR_BUFFER_BIT);
