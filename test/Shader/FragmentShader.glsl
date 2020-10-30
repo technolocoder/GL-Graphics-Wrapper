@@ -1,10 +1,11 @@
 #version 420 core
 
 in VS_OUT{
-    vec3 color;
+    vec2 texture_coords;
 } fs_in;
 
+uniform sampler2D tex;
 out vec4 color;
 void main(){
-    color = vec4(fs_in.color,1.0);
+    color = texture(tex,fs_in.texture_coords);
 }
