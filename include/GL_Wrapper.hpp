@@ -1,3 +1,5 @@
+#define STB_IMAGE_IMPLEMENTATION
+
 #include "Camera.hpp"
 #include "Mesh.hpp"
 #include "Model.hpp"
