@@ -31,11 +31,9 @@ void Shader::initialize(const char *filepath ,const GLuint shader_type){
     glGetShaderiv(shader_id,GL_COMPILE_STATUS,&compile_success);
 
     if(!compile_success){
-        GLsizei log_size;
         std::cerr << "Error compiling shader named: " << filepath << '\n';
-        glGetShaderInfoLog(shader_id,0,&log_size,NULL);
-        char log[log_size];
-        glGetShaderInfoLog(shader_id,log_size,NULL,log);
+        char log[2048];
+        glGetShaderInfoLog(shader_id,2048,NULL,log);
         std::cerr << "Error:\n" << log << '\n';
         exit(1);
     }
