@@ -12,7 +12,7 @@ run_test : $(bin_path)Test_Executable
 	./$(bin_path)Test_Executable
 
 $(bin_path)Test_Executable : $(build_path)Test_Executable.o
-	g++ $(build_path)Test_Executable.o -L$(lib_path) -lGL_Wrapper -o$(bin_path)Test_Executable -lGL -lGLU -lGLEW -lglfw
+	g++ $(build_path)Test_Executable.o -L$(lib_path) -lGL_Wrapper -o$(bin_path)Test_Executable -lGL -lGLU -lGLEW -lglfw -lassimp
 
 $(build_path)Test_Executable.o : $(lib_path)libGL_Wrapper
 	g++ $(test_path)main.cpp -O3 -c -o$(build_path)Test_Executable.o -I$(include_path)

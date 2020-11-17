@@ -9,7 +9,12 @@ enum TEXTURE_TYPES {TEXTURE_DIFFUSE ,TEXTURE_SPECULAR};
 
 class Texture{
 public:
+    Texture();
     void initialize(const char *filename ,void additional_parameters() ,int channel_count ,bool gamma_corrected);
+    void initialize(const char *filename ,void additional_parameters() ,int channel_count);
+    void initialize(const char *filename ,void additional_parameters());
+    void initialize(const char *filename);
+
 
     Texture(const char *filename ,void additional_parameters() ,int channel_count,bool gamma_corrected);
     Texture(const char *filename ,void additional_parameters() ,int channel_count);

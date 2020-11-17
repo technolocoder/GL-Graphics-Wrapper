@@ -1,5 +1,7 @@
 #include "Texture.hpp"
 
+Texture::Texture() {}
+
 void Texture::initialize(const char *filename ,void additional_parameters() ,int channel_count,bool gamma_corrected){
     int width,height,channels;
     unsigned char *image = stbi_load(filename,&width,&height,&channels,channel_count);
@@ -85,4 +87,21 @@ void Texture::set_texture_type(int _texture_type){
 
 void Texture::bind(){
     glBindTexture(GL_TEXTURE_2D,texture_id);
+}
+
+void Texture::initialize(const char *filename ,void additional_parameters() ,int channel_count){
+    initialize(filename,additional_parameters,channel_count,false);
+}
+
+void Texture::initialize(const char *filename ,void additional_parameters()){
+    initialize(filename,additional_parameters,3,false);
+}
+
+void Texture::initialize(const char *filename){
+    initialize(filename,[](){
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+    },3,false);
 }

@@ -1,11 +1,15 @@
-#version 420 core
+#version 440 core
 
 in VS_OUT{
     vec2 texture_coords;
 } fs_in;
 
-uniform sampler2D tex;
+struct Material{
+    sampler2D diffuse1;
+};
+uniform Material material;
+
 out vec4 color;
 void main(){
-    color = texture(tex,fs_in.texture_coords);
+    color = texture(material.diffuse1,fs_in.texture_coords);
 }
