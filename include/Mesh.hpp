@@ -8,9 +8,9 @@
 
 struct Vertex{
     Vertex();
-    Vertex(glm::vec3 _position ,glm::vec3 _normal ,glm::vec2 _texture_coords);
+    Vertex(glm::vec3 _position ,glm::vec3 _normal ,glm::vec2 _texture_coords,glm::vec3 _tangent,glm::vec3 _bitangent);
 
-    glm::vec3 position,normal;
+    glm::vec3 position,normal,tangent,bitangent;
     glm::vec2 texture_coords;
 };
 

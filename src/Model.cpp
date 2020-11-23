@@ -37,7 +37,7 @@ void Model::initialize(const std::string &path){
 
 void Model::initialize(const std::string &path ,bool gamma_corrected){
     Assimp::Importer importer;
-    const aiScene *scene = importer.ReadFile(path,aiProcess_Triangulate|aiProcess_FlipUVs);
+    const aiScene *scene = importer.ReadFile(path,aiProcess_Triangulate|aiProcess_FlipUVs|aiProcess_CalcTangentSpace);
 
     if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode){
         std::cerr << "Error loading assimp: " << importer.GetErrorString() << '\n';
@@ -69,12 +69,16 @@ Mesh Model::process_mesh(aiMesh *mesh ,const aiScene *scene ,bool gamma_correcte
             vertices[i].position = glm::vec3(mesh->mVertices[i].x,mesh->mVertices[i].y,mesh->mVertices[i].z); 
             vertices[i].normal = glm::vec3(mesh->mNormals[i].x,mesh->mNormals[i].y,mesh->mNormals[i].z);
             vertices[i].texture_coords = glm::vec2(mesh->mTextureCoords[0][i].x,mesh->mTextureCoords[0][i].y);
+            vertices[i].tangent = glm::vec3(mesh->mTangents[i].x,mesh->mTangents[i].y,mesh->mTangents[i].z);
+            vertices[i].bitangent = glm::vec3(mesh->mBitangents[i].x,mesh->mBitangents[i].y,mesh->mBitangents[i].z);
         }
     }else{
         for(int i = 0; i < mesh->mNumVertices; ++i){
             vertices[i].position = glm::vec3(mesh->mVertices[i].x,mesh->mVertices[i].y,mesh->mVertices[i].z); 
             vertices[i].normal = glm::vec3(mesh->mNormals[i].x,mesh->mNormals[i].y,mesh->mNormals[i].z);
             vertices[i].texture_coords = glm::vec2(0.0f,0.0f);
+            vertices[i].tangent = glm::vec3(mesh->mTangents[i].x,mesh->mTangents[i].y,mesh->mTangents[i].z);
+            vertices[i].bitangent = glm::vec3(mesh->mBitangents[i].x,mesh->mBitangents[i].y,mesh->mBitangents[i].z);
         }
     }
 
@@ -87,8 +91,9 @@ Mesh Model::process_mesh(aiMesh *mesh ,const aiScene *scene ,bool gamma_correcte
 
     if(mesh->mMaterialIndex >= 0){
         aiMaterial *material = scene->mMaterials[mesh->mMaterialIndex];
-        load_material_textures(material,aiTextureType_DIFFUSE,TEXTURE_DIFFUSE,textures,false);
-        //load_material_textures(material,aiTextureType_SPECULAR,TEXTURE_SPECULAR,textures,gamma_corrected);
+        load_material_textures(material,aiTextureType_DIFFUSE,TEXTURE_DIFFUSE,textures,gamma_corrected);
+        load_material_textures(material,aiTextureType_SPECULAR,TEXTURE_SPECULAR,textures,false);
+        load_material_textures(material,aiTextureType_HEIGHT,TEXTURE_NORMAL,textures,false);
     }
     
     return Mesh(vertices,textures,indices);

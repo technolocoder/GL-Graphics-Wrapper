@@ -5,7 +5,7 @@
 #include <GL/glew.h>
 #include <iostream>
 
-enum TEXTURE_TYPES {TEXTURE_DIFFUSE ,TEXTURE_SPECULAR};
+enum TEXTURE_TYPES {TEXTURE_DIFFUSE ,TEXTURE_SPECULAR ,TEXTURE_NORMAL};
 
 class Texture{
 public:
