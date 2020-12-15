@@ -33,7 +33,7 @@ void Shader::initialize(const char *filepath ,const GLuint shader_type){
     if(!compile_success){
         std::cerr << "Error compiling shader named: " << filepath << '\n';
         char log[2048];
-        glGetShaderInfoLog(shader_id,2048,NULL,log);
+        glGetShaderInfoLog(shader_id,2048*sizeof(char),NULL,log);
         std::cerr << "Error:\n" << log << '\n';
         exit(1);
     }

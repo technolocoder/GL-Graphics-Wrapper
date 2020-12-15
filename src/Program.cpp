@@ -17,6 +17,17 @@ void Program::attachShader(Shader &shader){
 
 void Program::link(){
     glLinkProgram(program_id);
+
+    int link_success;
+    glGetProgramiv(program_id,GL_LINK_STATUS,&link_success);
+
+    if(!link_success){
+        std::cerr << "Error linking program:\n";
+        char log[2048];
+        glGetProgramInfoLog(program_id,2048*sizeof(char),NULL,log);
+        std::cerr << log << '\n';
+        exit(1);
+    }
 }
 
 void Program::use(){
