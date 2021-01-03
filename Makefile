@@ -14,13 +14,13 @@ run_test : $(bin_path)Test_Executable
 $(bin_path)Test_Executable : $(build_path)Test_Executable.o
 	g++ $(build_path)Test_Executable.o -L$(lib_path) -lGL_Wrapper -o$(bin_path)Test_Executable -lGL -lGLU -lGLEW -lglfw -lassimp
 
-$(build_path)Test_Executable.o : $(lib_path)libGL_Wrapper
+$(build_path)Test_Executable.o : $(lib_path)libGL_Wrapper.a
 	g++ $(test_path)main.cpp -O3 -c -o$(build_path)Test_Executable.o -I$(include_path)
 
 .PHONY : build_library
-build_library : $(lib_path)libGL_Wrapper
+build_library : $(lib_path)libGL_Wrapper.a
 
-$(lib_path)libGL_Wrapper : $(object_files)
+$(lib_path)libGL_Wrapper.a : $(object_files)
 	ar crf $(lib_path)libGL_Wrapper.a $(object_files)
 
 $(build_path)Camera.o : $(src_path)Camera.cpp $(include_path)Camera.hpp
